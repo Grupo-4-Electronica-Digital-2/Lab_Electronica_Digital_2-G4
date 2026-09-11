@@ -53,6 +53,7 @@ Incluya:
 
 (Incluya capturas de pantalla de GTKWave donde se evidencie el correcto funcionamiento.)
 #### Ejercicio 1: 
+<img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
 #### Ejercicio 2
