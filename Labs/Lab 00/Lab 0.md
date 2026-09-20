@@ -11,10 +11,10 @@ Bonus el ASM y lo que pasa con las variables
 
 - Andres Felipe Castro Lopez – 1014298415
 - Juan Pablo Castañeda Moncada - 1000851451
-- Nombre completo – DNI
+- Angel Manuel Cortavarria Salas – 1044213907
 
-Grupo de trabajo: G4  
-Semestre: 2026-2  
+**Grupo de trabajo:** 4  
+**Semestre:** 2026-2 
 
 ---
 
@@ -32,7 +32,8 @@ Semestre: 2026-2
 Durante el Laboratorio 00 se desarrollaron dos sistemas digitales secuenciales principales empleando el concepto de Máquina de Estados Finitos (FSM) y la integración de una FSM con un bloque de procesamiento de datos (datapath). Los diseños fueron descritos en Verilog y verificados mediante simulación utilizando Icarus Verilog para la compilación y ejecución y GTKWave para la visualización de las señales. La guía del laboratorio tiene como fin el diseño de sistemas que funcionen durante varios ciclos de reloj y comprobar su comportamiento con testbench.
 
 ### Ejercicio 1 – FSM de control: semáforo vehicular
-El primer diseño es una Máquina de Estados Finitos (FSM) secuencial que controla un semáforo vehicular. El sistema usa el reloj (clk) como referencia de tiempo. También tiene una señal de reset (rst) para fijar el estado inicial.  
+El primer diseño es una Máquina de Estados Finitos (FSM) secuencial que controla un semáforo vehicular. El sistema usa el reloj (clk) como referencia de tiempo. También tiene una señal de reset (rst) para fijar el estado inicial. 
+![Diagrama de Estados](./imagenes/DiagramaEstadosEj1.png)
 
 
 ### Ejercicio 2 – FSM con datapath: acumulador secuencial
