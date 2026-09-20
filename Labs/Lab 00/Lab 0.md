@@ -70,6 +70,69 @@ El clock se encarga de controlar la permanencia en cada estado e indica el momen
 
 
 #### Ejercicio 2
+## 1. Descripción del Testbench
+
+El banco de pruebas (`tb_acumulador_sec.v`) fue diseñado para validar tanto el flujo de acumulación normal en todas sus variantes como la lógica de interrupción.
+
+* **Generación de Reloj:** Se configuró un reloj con un período de $10\text{ ns}$ (frecuencia de $100\text{ MHz}$) mediante la directiva `always #5 clk = ~clk;`.
+* **Secuencia de Estímulos:**
+  1. **Reset Inicial:** Se aplica un pulso en alto a `rst` durante $10\text{ ns}$ para garantizar el estado inicial `IDLE (0)`.
+  2. **Ciclo de Acumulación:** Se asigna un valor a la entrada `x[3:0]`, se habilita la señal `start` durante un ciclo de reloj y se deja evolucionar la FSM.
+  3. **Prueba de Cancelación:** En un segundo ciclo de operación, se activa la señal `cancel` durante el estado `ADD` para comprobar el retorno inmediato a `IDLE`.
+
+## 2. Señales Observadas
+
+Las señales monitoreadas en el visor de formas de onda GTKWave se dividen en control y datos:
+
+| Señal | Tipo | Descripción / Interpretación en GTKWave |
+| :--- | :--- | :--- |
+| `clk` | Entrada | Reloj principal del sistema ($T = 10\text{ ns}$). |
+| `rst` | Entrada | Reset asíncrono. En nivel alto reinicia la FSM a `IDLE`. |
+| `start` | Entrada | Pulso de inicio de la operación de acumulación. |
+| `cancel` | Entrada | Señal de aborto de proceso. |
+| `x[3:0]` | Entrada | Dato de $4\text{ bits}$ a acumular en cada ciclo. |
+| `estado[1:0]` | Interna | Codificación del estado actual de la FSM:<br>• `0`: IDLE \| `1`: LOAD \| `2`: ADD \| `3`: DONE |
+| `acc[5:0]` | Salida | Registro acumulador ($6\text{ bits}$) que almacena la suma progresiva. |
+| `done` | Salida | Pulso de bandera que indica la finalización exitosa del cálculo. |
+
+
+## 3. Resultados Obtenidos y Evidencias
+
+A continuación se presentan las capturas de pantalla de las simulaciones correspondientes a las tres variantes de acumulación y a la función de cancelación.
+
+### Variante 1: Sumar X 3 veces (`VARIANTE = 0`)
+
+En esta configuración, el sistema realiza la suma de $x$ durante 3 ciclos de reloj en el estado `ADD (2)`.
+
+![Simulación Variante 1 - Sumar 3 veces](./imagenes/acum_3.png)
+
+* **Análisis del resultado:**
+  * Con $x = 3$, al presionar `start`, la FSM pasa de `IDLE (0)` a `LOAD (1)` y luego a `ADD (2)`.
+  * La señal `acc` incrementa en pasos de $3$: $0 \rightarrow 3 \rightarrow 6 \rightarrow 9$.
+  * Al completar los 3 ciclos, el sistema pasa al estado `DONE (3)`, donde se activa `done = 1` por un ciclo.
+  * **Prueba de Cancelación:** En la segunda ráfaga con $x = 5$, la activación de `cancel` interrumpe el proceso, regresando la FSM a `IDLE (0)` y limpiando `acc` a $0$.
+
+
+### Variante 2: Sumar X 4 veces (`VARIANTE = 1`)
+
+En esta configuración, la acumulación se ejecuta durante 4 ciclos consecutivos antes de finalizar.
+
+![Simulación Variante 2 - Sumar 4 veces](./imagenes/acum_4.png)
+
+* **Análisis del resultado:**
+  * Para una entrada constante $x = 3$, el acumulador evoluciona secuencialmente: $0 \rightarrow 3 \rightarrow 6 \rightarrow 9 \rightarrow 12$.
+  * Cumplidos los 4 ciclos requeridos, se alcanza el estado `DONE (3)` activando la bandera de salida `done`.
+
+
+### Variante 3: Sumar hasta que acc mayor o igual a 20 (`VARIANTE = 2`)
+
+En esta configuración, el Datapath evalúa en cada ciclo si la suma acumulada alcanzará o superará el umbral de $20$.
+
+![Simulación Variante 3 - Suma mayor o igual a 20](./imagenes/acum_20.png)
+
+* **Análisis del resultado:**
+  * Con entrada $x = 3$, el sistema acumula sucesivamente: $3, 6, 9, 12, 15, 18, 21$.
+  * Al alcanzar $21$ ($21 \ge 20$), la condición de parada se cumple y la FSM transita inmediatamente al estado `DONE (3)`, activando el pulso `done`.
 
 
 #### Ejercicio 3
