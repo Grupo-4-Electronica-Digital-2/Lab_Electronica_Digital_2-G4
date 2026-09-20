@@ -29,16 +29,15 @@ Bonus el ASM y lo que pasa con las variables
 
 ## Diseño implementado
 
-Describa brevemente los diseños realizados en el laboratorio.
+Durante el Laboratorio 00 se desarrollaron dos sistemas digitales secuenciales principales empleando el concepto de Máquina de Estados Finitos (FSM) y la integración de una FSM con un bloque de procesamiento de datos (datapath). Los diseños fueron descritos en Verilog y verificados mediante simulación utilizando Icarus Verilog para la compilación y ejecución y GTKWave para la visualización de las señales. La guía del laboratorio tiene como fin el diseño de sistemas que funcionen durante varios ciclos de reloj y comprobar su comportamiento con testbench.
 
-Incluya:
-- Tipo de sistema (FSM, FSM + datapath).
-- Estados definidos.
-- Funcionamiento general del sistema.
+### Ejercicio 1 – FSM de control: semáforo vehicular
+El primer diseño es una Máquina de Estados Finitos (FSM) secuencial que controla un semáforo vehicular. El sistema usa el reloj (clk) como referencia de tiempo. También tiene una señal de reset (rst) para fijar el estado inicial.  
 
-Cuando aplique, incluya el diagrama de la máquina de estados.
 
----
+### Ejercicio 2 – FSM con datapath: acumulador secuencial
+
+El segundo diseño es un sistema tipo FSM con datapath. En este, una máquina de estados controla las operaciones que se hacen sobre un registro acumulador. Este ejercicio permite separar la unidad de control, que es la FSM, del procesamiento de los datos, que lo hace el datapath.
 
 ## Simulaciones
 
