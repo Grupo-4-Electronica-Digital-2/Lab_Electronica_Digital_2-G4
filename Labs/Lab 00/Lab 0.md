@@ -165,7 +165,27 @@ La única excepción al comportamiento acumulado del contador
 es la transición de YELLOW a GREEN cuando count==12, donde
 se resetea a 0 para comenzar el siguiente ciclo completo.
 
-> El código fuente debe encontrarse en la carpeta `src/`.
+## Ejercicio 2:
+
+### Implementación del Diseño en Verilog
+
+El acumulador secuencial se implementó mediante una arquitectura **FSM con Datapath** síncrona[cite: 2]. El detalle técnico línea por línea se encuentra comentado directamente en el código fuente dentro de la carpeta [`src/`](./src/)[cite: 5].
+
+---
+
+#### 1. Estructura y Código Fuente
+
+* **Módulo Principal:** [`src/acumulador_sec.v`](./src/acumulador_sec.v)  
+  Contiene el control por FSM (`IDLE`, `LOAD`, `ADD`, `DONE`), la lógica del Datapath (sumador/contador) y el soporte para la señal de cancelación[cite: 2].
+* **Banco de Pruebas:** [`src/tb_acumulador_sec.v`](./src/tb_acumulador_sec.v)  
+  Genera el reloj de $10\text{ ns}$, el reset asíncrono y los estímulos de prueba para generar el archivo de ondas para GTKWave[cite: 2, 3].
+
+---
+
+#### 2. Puntos Clave del Hardware
+
+* **Reloj y Reset:** Operación síncrona en flanco de subida (`posedge clk`) con reset asíncrono activo en alto (`rst`) que fuerza el estado inicial `IDLE (0)`[cite: 2].
+* **Flujo del Sistema:** Tras recibir `start = 1`, la FSM limpia los registros en `LOAD`, ejecuta las sumas en `ADD` según el parámetro `VARIANTE`, emite el pulso `done = 1` en `DONE` y retorna automáticamente a `IDLE`[cite: 2, 3, 4]. La señal `cancel = 1` interrumpe el proceso en cualquier punto[cite: 2].
 
 ---
 
