@@ -64,24 +64,48 @@ El clock se encarga de controlar la permanencia en cada estado e indica el momen
 ### Evidencias
 
 (Incluya capturas de pantalla de GTKWave donde se evidencie el correcto funcionamiento.)
-### Ejercicio 1: 
+#### Ejercicio 1: 
 <img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
-### Ejercicio 2
+#### Ejercicio 2
 
 
-### Ejercicio 3
+#### Ejercicio 3
 
 
 ## Implementación
 
-Explique cómo se implementó el diseño en Verilog.
+### Ejercicio 1:
 
-Incluya:
-- Organización del código.
-- Manejo de reloj y reset.
-- Comportamiento esperado del sistema.
+El diseño se divide en dos archivos:
+- [semaforo.v](./src/semaforo.v): contiene el módulo principal de la FSM
+- [tb_semaforo.v](./src/semaforo_tb.v): contiene el testbench de verificación
+
+El módulo semaforo.v está organizado en dos bloques always:
+el primero maneja la lógica secuencial (cambio de estados y 
+contador), y el segundo maneja las salidas combinacionales.
+
+El sistema opera en el flanco positivo del reloj (posedge clk).
+El reset es asíncrono ya que esta en la lista sensitiva junto al clock y activo alto — al activarse, el sistema
+regresa inmediatamente al estado GREEN con count=0,
+independientemente del estado actual.
+
+Los estados se codificaron con localparams de 2 bits:
+S0_GREEN=00, S1_YELLOW=01, S2_RED=10.
+
+El contador count es una variable interna de 4 bits que se
+incrementa en cada ciclo de reloj sin resetearse al cambiar
+de estado — esto permite usar valores absolutos como umbrales
+de transición (count==4, count==6, count==10, count==12).
+
+Las salidas green, yellow y red se calculan en un bloque
+always @(*) separado — esto garantiza que son señales Moore
+puras, es decir, dependen únicamente del estado actual y sean puramente combinacionales.
+
+La única excepción al comportamiento acumulado del contador
+es la transición de YELLOW a GREEN cuando count==12, donde
+se resetea a 0 para comenzar el siguiente ciclo completo.
 
 > El código fuente debe encontrarse en la carpeta `src/`.
 
