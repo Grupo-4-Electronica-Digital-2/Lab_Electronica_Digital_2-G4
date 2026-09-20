@@ -41,15 +41,8 @@ El primer diseño es una Máquina de Estados Finitos (FSM) secuencial que contro
 
 El segundo diseño es un sistema tipo FSM con datapath. En este, una máquina de estados controla las operaciones que se hacen sobre un registro acumulador. Este ejercicio permite separar la unidad de control, que es la FSM, del procesamiento de los datos, que lo hace el datapath.
 
-## Simulaciones
+## Simulaciones:
 
-Describa las simulaciones realizadas para verificar el funcionamiento del diseño.
-
-Incluya:
-- Descripción del testbench.
-- Señales observadas.
-- Resultados obtenidos.
-- 
 ### Ejercicio 1: 
 Se elaboró un testbench en Verilog, cuyo objetivo es comprobar el correcto funcionamiento de la FSM del semáforo, generando la señal de reloj clk, aplicando la señal de reset rst y permitiendo seguir la evolución del sistema a lo largo de varios ciclos.
 Las señales presentes fueron las siguientes:
@@ -62,15 +55,13 @@ La simulación ha permitido observar la secuencia de estados:
 Verde ↔ Amarillo ↔ Rojo ↔ Amarillo ↔ Verde
 El clock se encarga de controlar la permanencia en cada estado e indica el momento en que se debe realizar una transición como se puede observar en GTKWave, la secuencia se repite correctamente y las salidas son coherentes con el estado de la FSM.
 
-### Evidencias
-
-(Incluya capturas de pantalla de GTKWave donde se evidencie el correcto funcionamiento.)
-#### Ejercicio 1: 
+### Resultados Obtenidos
+ 
 <img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
-## Ejercicio 2
-## 1. Descripción del Testbench
+### Ejercicio 2
+### 1. Descripción del Testbench
 
 El banco de pruebas (`tb_acumulador_sec.v`) fue diseñado para validar tanto el flujo de acumulación normal en todas sus variantes como la lógica de interrupción.
 
@@ -80,7 +71,7 @@ El banco de pruebas (`tb_acumulador_sec.v`) fue diseñado para validar tanto el 
   2. **Ciclo de Acumulación:** Se asigna un valor a la entrada `x[3:0]`, se habilita la señal `start` durante un ciclo de reloj y se deja evolucionar la FSM.
   3. **Prueba de Cancelación:** En un segundo ciclo de operación, se activa la señal `cancel` durante el estado `ADD` para comprobar el retorno inmediato a `IDLE`.
 
-## 2. Señales Observadas
+### 2. Señales Observadas
 
 Las señales monitoreadas en el visor de formas de onda GTKWave se dividen en control y datos:
 
@@ -96,11 +87,11 @@ Las señales monitoreadas en el visor de formas de onda GTKWave se dividen en co
 | `done` | Salida | Pulso de bandera que indica la finalización exitosa del cálculo. |
 
 
-## 3. Resultados Obtenidos y Evidencias
+### 3. Resultados Obtenidos y Evidencias
 
 A continuación se presentan las capturas de pantalla de las simulaciones correspondientes a las tres variantes de acumulación y a la función de cancelación.
 
-### Variante 1: Sumar X 3 veces (`VARIANTE = 0`)
+#### Variante 1: Sumar X 3 veces (`VARIANTE = 0`)
 
 En esta configuración, el sistema realiza la suma de $x$ durante 3 ciclos de reloj en el estado `ADD (2)`.
 
@@ -113,7 +104,7 @@ En esta configuración, el sistema realiza la suma de $x$ durante 3 ciclos de re
   * **Prueba de Cancelación:** En la segunda ráfaga con $x = 5$, la activación de `cancel` interrumpe el proceso, regresando la FSM a `IDLE (0)` y limpiando `acc` a $0$.
 
 
-### Variante 2: Sumar X 4 veces (`VARIANTE = 1`)
+#### Variante 2: Sumar X 4 veces (`VARIANTE = 1`)
 
 En esta configuración, la acumulación se ejecuta durante 4 ciclos consecutivos antes de finalizar.
 
@@ -124,7 +115,7 @@ En esta configuración, la acumulación se ejecuta durante 4 ciclos consecutivos
   * Cumplidos los 4 ciclos requeridos, se alcanza el estado `DONE (3)` activando la bandera de salida `done`.
 
 
-### Variante 3: Sumar hasta que acc mayor o igual a 20 (`VARIANTE = 2`)
+#### Variante 3: Sumar hasta que acc mayor o igual a 20 (`VARIANTE = 2`)
 
 En esta configuración, el Datapath evalúa en cada ciclo si la suma acumulada alcanzará o superará el umbral de $20$.
 
@@ -135,7 +126,7 @@ En esta configuración, el Datapath evalúa en cada ciclo si la suma acumulada a
   * Al alcanzar $21$ ($21 \ge 20$), la condición de parada se cumple y la FSM transita inmediatamente al estado `DONE (3)`, activando el pulso `done`.
 
 
-#### Ejercicio 3
+### Ejercicio 3:
 
 
 ## Implementación
@@ -166,7 +157,7 @@ es la transición de YELLOW a GREEN cuando count==12, donde
 se resetea a 0 para comenzar el siguiente ciclo completo.
 
 
-## Ejercicio 2:
+### Ejercicio 2:
 ### Implementación del Diseño en Verilog
 El acumulador secuencial se implementó mediante una arquitectura **FSM con Datapath** síncrona. El detalle técnico línea por línea se encuentra comentado directamente en el código fuente dentro de la carpeta [`src/`](./src/).
 
