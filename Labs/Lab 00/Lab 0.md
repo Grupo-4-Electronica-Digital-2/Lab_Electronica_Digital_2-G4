@@ -1,4 +1,4 @@
-# Laboratorio 00  
+# Laboratorio 00: Introducción a Verilog, Simulación y Máquinas de Estados Finitos (FSM) 
 ## Introducción a Verilog, Simulación y Máquinas de Estados Finitos (FSM)
 
 Maquinas de estado 
@@ -10,11 +10,11 @@ Bonus el ASM y lo que pasa con las variables
 ## Integrantes
 
 - Andres Felipe Castro Lopez – 1014298415
-- Nombre completo – DNI
+- Juan Pablo Castañeda Moncada - 1000851451
 - Nombre completo – DNI
 
-**Grupo de trabajo: G4  
-**Semestre:2026-2  
+Grupo de trabajo: G4  
+Semestre: 2026-2  
 
 ---
 
