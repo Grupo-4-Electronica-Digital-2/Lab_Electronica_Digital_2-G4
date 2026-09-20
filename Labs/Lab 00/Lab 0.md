@@ -32,7 +32,8 @@ Bonus el ASM y lo que pasa con las variables
 Durante el Laboratorio 00 se desarrollaron dos sistemas digitales secuenciales principales empleando el concepto de Máquina de Estados Finitos (FSM) y la integración de una FSM con un bloque de procesamiento de datos (datapath). Los diseños fueron descritos en Verilog y verificados mediante simulación utilizando Icarus Verilog para la compilación y ejecución y GTKWave para la visualización de las señales. La guía del laboratorio tiene como fin el diseño de sistemas que funcionen durante varios ciclos de reloj y comprobar su comportamiento con testbench.
 
 ### Ejercicio 1 – FSM de control: semáforo vehicular
-El primer diseño es una Máquina de Estados Finitos (FSM) secuencial que controla un semáforo vehicular. El sistema usa el reloj (clk) como referencia de tiempo. También tiene una señal de reset (rst) para fijar el estado inicial. 
+El primer diseño es una Máquina de Estados Finitos (FSM) secuencial que controla un semáforo vehicular. El sistema usa el reloj (clk) como referencia de tiempo. También tiene una señal de reset (rst) para fijar el estado inicial. Para cumplir los requisitos de la guia, se usaron acciones de transicion para reiniciar el contador interno cuando viene una señal de reset (rst) o del estado YELLOW a GREEN sin agregar un estado mas, como se observa en la figura.
+
 ![Diagrama de Estados](./imagenes/DiagramaEstadosEj1.png)
 
 
@@ -80,24 +81,18 @@ El clock se encarga de controlar la permanencia en cada estado e indica el momen
 
 El diseño se divide en dos archivos:
 - [semaforo.v](./src/semaforo.v): contiene el módulo principal de la FSM
-- [tb_semaforo.v](./src/semaforo_tb.v): contiene el testbench de verificación
+- [tb_semaforo.v](./src/tb_semaforo.v): contiene el testbench de verificación
 
 El módulo semaforo.v está organizado en dos bloques always:
-el primero maneja la lógica secuencial (cambio de estados y 
-contador), y el segundo maneja las salidas combinacionales.
+el primero maneja la lógica secuencial (cambio de estados y contador), y el segundo maneja las salidas combinacionales.
 
 El sistema opera en el flanco positivo del reloj (posedge clk).
-El reset es asíncrono ya que esta en la lista sensitiva junto al clock y activo alto — al activarse, el sistema
-regresa inmediatamente al estado GREEN con count=0,
-independientemente del estado actual.
+El reset es asíncrono ya que esta en la lista sensitiva junto al clock y activo alto — al activarse, el sistema regresa inmediatamente al estado GREEN con count=0,independientemente del estado actual.
 
 Los estados se codificaron con localparams de 2 bits:
 S0_GREEN=00, S1_YELLOW=01, S2_RED=10.
 
-El contador count es una variable interna de 4 bits que se
-incrementa en cada ciclo de reloj sin resetearse al cambiar
-de estado — esto permite usar valores absolutos como umbrales
-de transición (count==4, count==6, count==10, count==12).
+El contador count es una variable interna de 4 bits que se incrementa en cada ciclo de reloj sin resetearse al cambiar de estado — esto permite usar valores absolutos como umbrales de transición (count==4, count==6, count==10, count==12).
 
 Las salidas green, yellow y red se calculan en un bloque
 always @(*) separado — esto garantiza que son señales Moore
@@ -120,5 +115,8 @@ se resetea a 0 para comenzar el siguiente ciclo completo.
 ---
 
 ## Referencias
+
+[1]: S. L. Harris y D. Harris, *Digital Design and Computer Architecture: RISC-V Edition*. Waltham, MA, USA: Morgan Kaufmann, 2021.
+
 
 
