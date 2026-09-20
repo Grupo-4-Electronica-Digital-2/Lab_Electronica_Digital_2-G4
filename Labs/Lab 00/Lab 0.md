@@ -40,6 +40,24 @@ El primer diseño es una Máquina de Estados Finitos (FSM) secuencial que contro
 ### Ejercicio 2 – FSM con datapath: acumulador secuencial
 
 El segundo diseño es un sistema tipo FSM con datapath. En este, una máquina de estados controla las operaciones que se hacen sobre un registro acumulador. Este ejercicio permite separar la unidad de control, que es la FSM, del procesamiento de los datos, que lo hace el datapath.
+A continuación se presente la maquina de estados:
+
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE
+
+    IDLE --> IDLE : start = 0
+    IDLE --> LOAD : start = 1
+
+    LOAD --> IDLE : cancel = 1
+    LOAD --> ADD : cancel = 0
+
+    ADD --> IDLE : cancel = 1
+    ADD --> ADD : Condición no cumplida\n(cancel = 0)
+    ADD --> DONE : Condición de parada cumplida
+
+    DONE --> IDLE : (1 ciclo / done = 1)
+```
 
 ## Simulaciones:
 
