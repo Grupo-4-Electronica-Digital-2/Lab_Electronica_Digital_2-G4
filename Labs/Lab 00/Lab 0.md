@@ -47,18 +47,30 @@ Incluya:
 - Descripción del testbench.
 - Señales observadas.
 - Resultados obtenidos.
+- 
+### Ejercicio 1: 
+Se elaboró un testbench en Verilog, cuyo objetivo es comprobar el correcto funcionamiento de la FSM del semáforo, generando la señal de reloj clk, aplicando la señal de reset rst y permitiendo seguir la evolución del sistema a lo largo de varios ciclos.
+Las señales presentes fueron las siguientes:
+- clk: señal de reloj.
+- rst: señal del reset del sistema.
+- green, yellow, red: señales de salida del semáforo.
+- state[1:0]: estado actual de la FSM.
+
+La simulación ha permitido observar la secuencia de estados:
+Verde ↔ Amarillo ↔ Rojo ↔ Amarillo ↔ Verde
+El clock se encarga de controlar la permanencia en cada estado e indica el momento en que se debe realizar una transición como se puede observar en GTKWave, la secuencia se repite correctamente y las salidas son coherentes con el estado de la FSM.
 
 ### Evidencias
 
 (Incluya capturas de pantalla de GTKWave donde se evidencie el correcto funcionamiento.)
-#### Ejercicio 1: 
+### Ejercicio 1: 
 <img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
-#### Ejercicio 2
+### Ejercicio 2
 
 
-#### Ejercicio 3
+### Ejercicio 3
 
 
 ## Implementación
