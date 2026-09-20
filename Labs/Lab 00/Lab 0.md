@@ -69,7 +69,7 @@ El clock se encarga de controlar la permanencia en cada estado e indica el momen
 <img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
-#### Ejercicio 2
+## Ejercicio 2
 ## 1. Descripción del Testbench
 
 El banco de pruebas (`tb_acumulador_sec.v`) fue diseñado para validar tanto el flujo de acumulación normal en todas sus variantes como la lógica de interrupción.
