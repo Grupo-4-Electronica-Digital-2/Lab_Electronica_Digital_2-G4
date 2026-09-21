@@ -61,12 +61,13 @@ Las señales presentes fueron las siguientes:
 - green, yellow, red: señales de salida del semáforo.
 - state[1:0]: estado actual de la FSM.
 
+### 2. Resultados Obtenidos y Evidencias
 La simulación ha permitido observar la secuencia de estados:
 Verde ↔ Amarillo ↔ Rojo ↔ Amarillo ↔ Verde
 El clock se encarga de controlar la permanencia en cada estado e indica el momento en que se debe realizar una transición como se puede observar en GTKWave, la secuencia se repite correctamente y las salidas son coherentes con el estado de la FSM.
 
-### Resultados Obtenidos
- 
+A continuación se presentan la captura de pantalla de las simulación correspondientes al semáforo y como este inicia en verde y se devuelve como la haría un semáforo real:
+
 <img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
