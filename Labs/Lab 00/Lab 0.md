@@ -39,6 +39,17 @@ El segundo diseño es un sistema tipo FSM con datapath. En este, una máquina de
 A continuación se presenta la maquina de estados:
 
 ![FSM Ejercicio 2](./imagenes/FSM_Ejercicio2.png)
+### Ejercicio 3 – FSM con datapath: Transmisor Serial (ASM Completa)
+
+El tercer diseño consiste en un transmisor serial síncrono de 8 bits implementado mediante una Máquina de Estados Algorítmica (ASM) bajo la arquitectura estricta de FSMD (Control + Datapath). El sistema recibe un byte de entrada (`data_in[7:0]`) y lo transmite bit a bit por la línea de salida `tx`, garantizando que cada bit dure exactamente la cantidad de ciclos definida por el parámetro `CLKS_PER_BIT`.
+
+El diseño se dividió de manera modular:
+*   **Unidad de Control (FSM):** Se encarga exclusivamente de dirigir el flujo de ejecución a través de los estados IDLE, LOAD, SEND, BIT_HOLD, SHIFT y DONE_ST. Solo genera las señales de control necesarias para comandar el hardware.
+*   **Datapath:** Ejecuta las operaciones físicas (sumas, corrimientos y asignaciones). Contiene un registro de desplazamiento (`shift_reg`), un contador de temporización de ciclos (`tick_cnt`) y un contador de bits transmitidos (`bit_count`).
+
+A continuación, se presenta el diagrama de la Máquina de Estados Algorítmica (ASM) que rigió la construcción del hardware:
+
+![Diagrama ASM Ejercicio 3](./imagenes/DiagramaASM_Ej3.png)
 
 ## Simulaciones:
 
@@ -171,6 +182,22 @@ El acumulador secuencial se implementó mediante una arquitectura **FSM con Data
 
 * **Reloj y Reset:** Operación síncrona en flanco de subida (`posedge clk`) con reset asíncrono activo en alto (`rst`) que fuerza el estado inicial `IDLE (0)`.
 * **Flujo del Sistema:** Tras recibir `start = 1`, la FSM limpia los registros en `LOAD`, ejecuta las sumas en `ADD` según el parámetro `VARIANTE`, emite el pulso `done = 1` en `DONE` y retorna automáticamente a `IDLE`[cite: 2, 3, 4]. La señal `cancel = 1` interrumpe el proceso en cualquier punto.
+### Ejercicio 3
+
+### Implementación del Diseño en Verilog
+
+El transmisor serial fue desarrollado en el archivo fuente `tx_serial.v` materializando la separación estricta entre la toma de decisiones y el procesamiento de los datos.
+
+#### 1. Unidad de Control (FSM)
+Construida mediante una máquina de Moore. Utiliza un bloque combinacional dedicado exclusivamente a resolver la lógica del siguiente estado y activar variables de control de un solo bit: `espera`, `ctrl_rst`, `send`, `duracion`, `shft` y `ctrl_done`. Estas banderas comunican a la Ruta de Datos lo que debe hacer en el instante preciso.
+
+#### 2. Datapath (Ruta de Datos)
+Implementado en un bloque secuencial síncrono `always @(posedge clk or posedge rst)` que lee las variables de la FSM:
+*   **Al recibir `ctrl_rst`:** Se carga `data_in` en `shift_reg`, se limpia el conteo de bits y se inicializa el temporizador de ciclos en 1, estrategia implementada directamente desde el diagrama de control para obviar lógica de resta en la comparación[cite: 2].
+*   **Al recibir `duracion`:** Se habilita el incremento lógico del contador temporal (`tick_cnt + 1`)[cite: 2].
+*   **Al recibir `shft`:** Se efectúa el desplazamiento físico en el registro (`shift_reg >> 1`), se incrementa `bit_count` en una unidad y se reinicia el temporizador de ciclos de reloj de inmediato[cite: 2].
+
+Las banderas que informan el progreso (`tick_done` y `bit_done`) viajan del Datapath a la FSM mediante lógica puramente combinacional (`assign`). Las salidas físicas del sistema (`tx`, `busy`, `done`) se dedujeron combinacionalmente a partir de las banderas de estado.
 
 
 
