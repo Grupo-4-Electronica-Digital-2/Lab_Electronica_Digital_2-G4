@@ -54,6 +54,7 @@ A continuación, se presenta el diagrama de la Máquina de Estados Algorítmica 
 ## Simulaciones:
 
 ### Ejercicio 1: 
+### 1. Descripción del Testbench
 Se elaboró un testbench en Verilog, cuyo objetivo es comprobar el correcto funcionamiento de la FSM del semáforo, generando la señal de reloj clk, aplicando la señal de reset rst y permitiendo seguir la evolución del sistema a lo largo de varios ciclos.
 Las señales presentes fueron las siguientes:
 - clk: señal de reloj.
