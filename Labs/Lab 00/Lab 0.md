@@ -72,7 +72,7 @@ A continuación se presentan la captura de pantalla de las simulación correspon
 <img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
-### Ejercicio 2
+### Ejercicio 2:
 ### 1. Descripción del Testbench
 
 El banco de pruebas (`tb_acumulador_sec.v`) fue diseñado para validar tanto el flujo de acumulación normal en todas sus variantes como la lógica de interrupción.
@@ -138,8 +138,7 @@ En esta configuración, el Datapath evalúa en cada ciclo si la suma acumulada a
   * Al alcanzar $21$ ($21 \ge 20$), la condición de parada se cumple y la FSM transita inmediatamente al estado `DONE (3)`, activando el pulso `done`.
 
 
-### Ejercicio 3
-
+### Ejercicio 3:
 #### 1. Descripción del Testbench
 
 El banco de pruebas (`tb_tx_serial.v`) se diseñó para comprobar la transmisión íntegra de bytes y la correcta temporización del sistema. Se instanció el módulo principal con el parámetro `CLKS_PER_BIT = 8` y un reloj de sistema de 10 ns de periodo.
@@ -205,7 +204,8 @@ El acumulador secuencial se implementó mediante una arquitectura **FSM con Data
 
 * **Reloj y Reset:** Operación síncrona en flanco de subida (`posedge clk`) con reset asíncrono activo en alto (`rst`) que fuerza el estado inicial `IDLE (0)`.
 * **Flujo del Sistema:** Tras recibir `start = 1`, la FSM limpia los registros en `LOAD`, ejecuta las sumas en `ADD` según el parámetro `VARIANTE`, emite el pulso `done = 1` en `DONE` y retorna automáticamente a `IDLE`[cite: 2, 3, 4]. La señal `cancel = 1` interrumpe el proceso en cualquier punto.
-### Ejercicio 3
+
+### Ejercicio 3:
 
 ### Implementación del Diseño en Verilog
 
