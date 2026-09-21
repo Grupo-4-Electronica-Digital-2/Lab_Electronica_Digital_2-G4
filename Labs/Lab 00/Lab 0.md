@@ -203,7 +203,7 @@ El acumulador secuencial se implementó mediante una arquitectura **FSM con Data
 #### 2. Puntos Clave del Hardware
 
 * **Reloj y Reset:** Operación síncrona en flanco de subida (`posedge clk`) con reset asíncrono activo en alto (`rst`) que fuerza el estado inicial `IDLE (0)`.
-* **Flujo del Sistema:** Tras recibir `start = 1`, la FSM limpia los registros en `LOAD`, ejecuta las sumas en `ADD` según el parámetro `VARIANTE`, emite el pulso `done = 1` en `DONE` y retorna automáticamente a `IDLE`[cite: 2, 3, 4]. La señal `cancel = 1` interrumpe el proceso en cualquier punto.
+* **Flujo del Sistema:** Tras recibir `start = 1`, la FSM limpia los registros en `LOAD`, ejecuta las sumas en `ADD` según el parámetro `VARIANTE`, emite el pulso `done = 1` en `DONE` y retorna automáticamente a `IDLE`. La señal `cancel = 1` interrumpe el proceso en cualquier punto.
 
 ### Ejercicio 3:
 
@@ -218,7 +218,7 @@ Construida mediante una máquina de Moore. Utiliza un bloque combinacional dedic
 Implementado en un bloque secuencial síncrono `always @(posedge clk or posedge rst)` que lee las variables de la FSM:
 *   **Al recibir `ctrl_rst`:** Se carga `data_in` en `shift_reg`, se limpia el conteo de bits y se inicializa el temporizador de ciclos en 1, estrategia implementada directamente desde el diagrama de control para obviar lógica de resta en la comparación.
 *   **Al recibir `duracion`:** Se habilita el incremento lógico del contador temporal (`tick_cnt + 1`).
-*   **Al recibir `shft`:** Se efectúa el desplazamiento físico en el registro (`shift_reg >> 1`), se incrementa `bit_count` en una unidad y se reinicia el temporizador de ciclos de reloj de inmediato[cite: 2].
+*   **Al recibir `shft`:** Se efectúa el desplazamiento físico en el registro (`shift_reg >> 1`), se incrementa `bit_count` en una unidad y se reinicia el temporizador de ciclos de reloj de inmediato.
 
 Las banderas que informan el progreso (`tick_done` y `bit_done`) viajan del Datapath a la FSM mediante lógica puramente combinacional (`assign`). Las salidas físicas del sistema (`tx`, `busy`, `done`) se dedujeron combinacionalmente a partir de las banderas de estado.
 
@@ -232,6 +232,8 @@ Como punto de partida del laboratorio, logramos instalar y verificar el correcto
 En cuanto al Ejercicio 1, diseñar la máquina de estados para el semáforo nos sirvió bastante para entender en la práctica cómo usar el reloj (clk) para llevar el control del tiempo en el sistema. Algo muy útil de este diseño fue que logramos optimizar la lógica: para cumplir con los requisitos de la guía, usamos acciones de transición para reiniciar el contador interno (ya sea al aplicar el rst o al regresar de Amarillo a Verde) y así nos evitamos el problema de tener que agregar estados extra innecesarios. Al final, armar el testbench y ver las ondas en GTKWave nos confirmó visualmente que la secuencia cíclica (Verde ↔ Amarillo ↔ Rojo ↔ Amarillo ↔ Verde) se cumple a la perfección, respetando los tiempos de permanencia de cada color y demostrando que nuestra FSM funciona exactamente como lo planeamos.
 
 Hablando del ejercicio 2, desarrollar el acumulador secuencial hizo mucho más clara la diferencia práctica entre usar lógica combinacional (para calcular las sumas o el próximo estado) y lógica secuencial (para guardar los datos en cada flanco de reloj). Diseñar la máquina de estados (FSM) conectada al Datapath nos ayudó a entender cómo coordinar un sistema que opera a lo largo de varios ciclos de reloj, asegurando que pase por sus estados correctamente (IDLE, LOAD, ADD, DONE), retenga el resultado al terminar y reaccione bien a señales como la cancelación. Al final, armar el testbench y revisar las ondas generadas nos demostró que la simulación es un paso obligatorio para cazar y corregir errores lógicos a tiempo.
+
+La implementación del transmisor serial demostró el valor de separar estrictamente la Unidad de Control (FSM) de la Ruta de Datos (Datapath). Al delegar la toma de decisiones a la máquina de estados y confinar las operaciones de desplazamiento y conteo al datapath, se logró un diseño altamente organizado y libre de condiciones de carrera.
 
 ---
 
