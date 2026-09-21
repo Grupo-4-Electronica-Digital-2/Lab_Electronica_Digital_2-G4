@@ -158,6 +158,8 @@ La simulación generó un archivo VCD cuyas ondas evidencian el cumplimiento ín
 
 ![Simulación Transmisión 8'hA5 y 8'h3C](./imagenes/simulacion_tx_completa.png)
 
+Zoom el asimulacion para observar duracion del bit transmitido (en este caso 8 ciclos de reloj).
+
 ![Detalle de Temporización de bit (Zoom GTKWave)](./imagenes/simulacion_tx_zoom.png)
 
 
