@@ -136,7 +136,28 @@ En esta configuración, el Datapath evalúa en cada ciclo si la suma acumulada a
   * Al alcanzar $21$ ($21 \ge 20$), la condición de parada se cumple y la FSM transita inmediatamente al estado `DONE (3)`, activando el pulso `done`.
 
 
-### Ejercicio 3:
+### Ejercicio 3
+
+#### 1. Descripción del Testbench
+
+El banco de pruebas (`tb_tx_serial.v`) se diseñó para comprobar la transmisión íntegra de bytes y la correcta temporización del sistema. Se instanció el módulo principal con el parámetro `CLKS_PER_BIT = 8` y un reloj de sistema de 10 ns de periodo.
+
+El estímulo aplicado consistió en:
+1.  **Reinicio Inicial:** Aplicación de un reset asíncrono para asegurar el arranque del sistema en el estado `IDLE` y la línea `tx` en reposo (alto).
+2.  **Primera Transmisión:** Envío de un pulso `start` de duración exacta de un ciclo de reloj para cargar y transmitir el dato `8'hA5` (10100101 en binario).
+3.  **Segunda Transmisión:** Tras esperar la confirmación de la bandera `done`, se repitió el proceso inyectando el dato `8'h3C` (00111100 en binario).
+
+#### 2. Resultados Obtenidos y Evidencias en GTKWave
+
+La simulación generó un archivo VCD cuyas ondas evidencian el cumplimiento íntegro de los criterios de éxito planteados:
+
+*   **Transmisión de 8 bits:** Se observa que el registro `shift_reg` se desplaza progresivamente hacia la derecha. El sistema procesa correctamente los 8 bits (del LSB al MSB) evaluando la bandera lógica hasta que `bit_count` llega a 8, impidiendo el envío de bits fantasma o prematuros.
+*   **Duración de cada bit:** La temporización es matemáticamente exacta. En el estado `BIT_HOLD`, la FSM evalúa `tick_cnt` permitiendo que cada bit permanezca en la línea de salida `tx` durante exactamente 8 ciclos de reloj completos[cite: 2].
+*   **Señales de estado:** La señal `busy` se activa en `1` ininterrumpidamente desde que el sistema sale de `IDLE` hasta que se completa el byte. Asimismo, la señal `done` se levanta durante un (y solo un) ciclo de reloj inmediatamente después del octavo desplazamiento, retornando el sistema a su estado inactivo.
+
+![Simulación Transmisión 8'hA5 y 8'h3C](./imagenes/simulacion_tx_completa.png)
+
+![Detalle de Temporización de bit (Zoom GTKWave)](./imagenes/simulacion_tx_zoom.png)
 
 
 ## Implementación
@@ -193,8 +214,8 @@ Construida mediante una máquina de Moore. Utiliza un bloque combinacional dedic
 
 #### 2. Datapath (Ruta de Datos)
 Implementado en un bloque secuencial síncrono `always @(posedge clk or posedge rst)` que lee las variables de la FSM:
-*   **Al recibir `ctrl_rst`:** Se carga `data_in` en `shift_reg`, se limpia el conteo de bits y se inicializa el temporizador de ciclos en 1, estrategia implementada directamente desde el diagrama de control para obviar lógica de resta en la comparación[cite: 2].
-*   **Al recibir `duracion`:** Se habilita el incremento lógico del contador temporal (`tick_cnt + 1`)[cite: 2].
+*   **Al recibir `ctrl_rst`:** Se carga `data_in` en `shift_reg`, se limpia el conteo de bits y se inicializa el temporizador de ciclos en 1, estrategia implementada directamente desde el diagrama de control para obviar lógica de resta en la comparación.
+*   **Al recibir `duracion`:** Se habilita el incremento lógico del contador temporal (`tick_cnt + 1`).
 *   **Al recibir `shft`:** Se efectúa el desplazamiento físico en el registro (`shift_reg >> 1`), se incrementa `bit_count` en una unidad y se reinicia el temporizador de ciclos de reloj de inmediato[cite: 2].
 
 Las banderas que informan el progreso (`tick_done` y `bit_done`) viajan del Datapath a la FSM mediante lógica puramente combinacional (`assign`). Las salidas físicas del sistema (`tx`, `busy`, `done`) se dedujeron combinacionalmente a partir de las banderas de estado.
