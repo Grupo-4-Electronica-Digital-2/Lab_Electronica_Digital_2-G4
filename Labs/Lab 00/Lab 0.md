@@ -181,10 +181,10 @@ El acumulador secuencial se implementó mediante una arquitectura **FSM con Data
 ---
 
 ## Conclusiones
+Como punto de partida del laboratorio, logramos instalar y verificar el correcto funcionamiento de Icarus Verilog y GTKWave, confirmando que tenemos el entorno listo para simular y analizar señales digitales sin problemas. Familiarizarnos con estas herramientas desde el principio es clave, ya que nos da la base para poder validar el comportamiento temporal de cualquier diseño antes de pensar en implementarlo en hardware físico.
 
-- Principales aprendizajes del laboratorio.
-- Dificultades encontradas.
-- Importancia de la simulación en el diseño digital.
+
+Hablando del ejercicio 2, desarrollar el acumulador secuencial hizo mucho más clara la diferencia práctica entre usar lógica combinacional (para calcular las sumas o el próximo estado) y lógica secuencial (para guardar los datos en cada flanco de reloj). Diseñar la máquina de estados (FSM) conectada al Datapath nos ayudó a entender cómo coordinar un sistema que opera a lo largo de varios ciclos de reloj, asegurando que pase por sus estados correctamente (IDLE, LOAD, ADD, DONE), retenga el resultado al terminar y reaccione bien a señales como la cancelación. Al final, armar el testbench y revisar las ondas generadas nos demostró que la simulación es un paso obligatorio para cazar y corregir errores lógicos a tiempo.
 
 ---
 
