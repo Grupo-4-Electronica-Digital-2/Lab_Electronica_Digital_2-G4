@@ -1,10 +1,6 @@
 # Laboratorio 00: Introducción a Verilog, Simulación y Máquinas de Estados Finitos (FSM) 
 ## Introducción a Verilog, Simulación y Máquinas de Estados Finitos (FSM)
 
-Maquinas de estado 
-Codigo comentado / explicaciones 
-Pantallazo GTK Wave 
-Bonus el ASM y lo que pasa con las variables 
 ---
 
 ## Integrantes
