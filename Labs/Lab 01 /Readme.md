@@ -36,14 +36,12 @@ La operación de la ALU se selecciona mediante los cuatro botones:
 
 | Botón | Operación | Expresión      | Indicador RGB |
 | ----- | --------- | -------------- | ------------- |
-| BTN0  | AND       | \(A \land B\)  | Rojo          |
-| BTN1  | OR        | \(A \lor B\)   | Verde         |
-| BTN2  | XOR       | \(A \oplus B\) | Azul          |
+| BTN0  | AND       | \(A \and B\)  | Rojo          |
+| BTN1  | OR        | \(A \or B\)   | Verde         |
+| BTN2  | XOR       | \(A \xor B\) | Azul          |
 | BTN3  | Suma      | \(A+B\)        | Rojo + verde  |
 
 La salida de cada operación se presenta mediante los cuatro LED (led[3:0]). Adicionalmente, el LED RGB permite identificar  la operación seleccionada. Las salidas se actualizan de manera combinacional cada vez que cambia alguna de las entradas.
-
-
 ---
 
 ## Simulaciones
@@ -62,20 +60,9 @@ Incluya:
 <img width="763" height="497" alt="image" src="https://github.com/user-attachments/assets/e103c39a-2d7c-4703-8b72-13892b01e749" />
 
 
-#### Ejercicio 2
-
-
-#### Ejercicio 3
-
-
 ## Implementación
 
-Explique cómo se implementó el diseño en Verilog.
 
-Incluya:
-- Organización del código.
-- Manejo de reloj y reset.
-- Comportamiento esperado del sistema.
 
 > El código fuente debe encontrarse en la carpeta `src/`.
 
