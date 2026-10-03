@@ -28,14 +28,21 @@ Pantallazo GTK Wave
 
 ## Diseño implementado
 
-Describa brevemente los diseños realizados en el laboratorio.
+El diseño implementa en la FPGA una unidad lógica aritmética (ALU) combinacional de 4 bits, encargada de realizar diferentes operaciones sobre dos operandos de 4 bits. 
 
-Incluya:
-- Tipo de sistema (FSM, FSM + datapath).
-- Estados definidos.
-- Funcionamiento general del sistema.
+Los operandos se obtienen de los ocho switches disponibles. Los cuatro switches inferiores (sw[3:0]) corresponden al operando \(A\), mientras que los cuatro switches superiores (sw[7:4]) corresponden al operando \(B\). Debido a que los switches externos utilizan una configuración pull-up, estos últimos se invierten mediante ~sw[7:4] para obtener la representación lógica esperada.
 
-Cuando aplique, incluya el diagrama de la máquina de estados.
+La operación de la ALU se selecciona mediante los cuatro botones:
+
+| Botón | Operación | Expresión      | Indicador RGB |
+| ----- | --------- | -------------- | ------------- |
+| BTN0  | AND       | \(A \land B\)  | Rojo          |
+| BTN1  | OR        | \(A \lor B\)   | Verde         |
+| BTN2  | XOR       | \(A \oplus B\) | Azul          |
+| BTN3  | Suma      | \(A+B\)        | Rojo + verde  |
+
+La salida de cada operación se presenta mediante los cuatro LED (led[3:0]). Adicionalmente, el LED RGB permite identificar  la operación seleccionada. Las salidas se actualizan de manera combinacional cada vez que cambia alguna de las entradas.
+
 
 ---
 
