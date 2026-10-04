@@ -9,7 +9,7 @@ Pantallazo GTK Wave
 ## Integrantes
 
 - Andres Felipe Castro Lopez – 1014298415
-- Nombre completo – DNI
+- Juan Pablo Castañeda Moncada - 1000851451
 - Nombre completo – DNI
 
 **Grupo de trabajo: G4  
