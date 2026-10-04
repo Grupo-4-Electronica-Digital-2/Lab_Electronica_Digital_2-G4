@@ -10,10 +10,10 @@ Pantallazo GTK Wave
 
 - Andres Felipe Castro Lopez – 1014298415
 - Juan Pablo Castañeda Moncada - 1000851451
-- Nombre completo – DNI
+- Angel Manuel Cortavarria Salas– 1044213907
 
-**Grupo de trabajo: G4  
-**Semestre:2026-2  
+**Grupo de trabajo:** G4  
+**Semestre:** 2026-2  
 
 ---
 
