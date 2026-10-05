@@ -46,7 +46,7 @@ La salida de cada operación se presenta mediante los cuatro LED (led[3:0]). Adi
 
 ## Simulaciones
 
-### Ejercicio 2: Diseño libre
+### Ejercicio 1: Diseño libre
 Se presenta el reporte de la simulación realizada para comprobar que el diseño de la ALU funciona correctamente.
 
 ### Descripción del testbench
@@ -102,6 +102,13 @@ Se hizo una prueba poniendo todo en cero. Los switches pasaron a `F0`, lo que de
 * **De 70 a 80 ns:** Al hacer la operación AND (`btn = 0001`), la salida de los LEDs fue `0000` y solo prendió el indicador rojo.
 
 ### Evidencias
+#### Preliminar
+Como paso preliminar, se validó el correcto funcionamiento de la placa Zybo Z7 y la configuración del entorno de Vivado mediante la implementación de un Smoke Test. 
+
+Se utilizó un diseño base de un semáforo, el cual requirió la modificación del archivo de restricciones `.xdc` para asignar correctamente la salida al **LED RGB #6** de la tarjeta. Se descomentaron las líneas correspondientes y se verificó que los nombres de los puertos (`get_ports`) coincidieran exactamente con el módulo *top*.
+
+
+#### Ejercicio 1:
 
 En la captura de pantalla de GTKWave se observa claramente que el código escrito en Verilog cumple con lo esperado. Las gráficas de ondas demuestran que la ALU ejecuta los cálculos correctos, incluyendo el detalle de invertir los switches altos para el segundo número. También se comprueba que el control de las luces RGB y los LEDs responde de inmediato a la selección de cada botón sin generar comportamientos extraños en la placa.
 
