@@ -145,4 +145,6 @@ Cuando no se presiona ningún botón, los LED permanecen apagados. Si se presion
 
 ## Conclusiones
 
--
+- Al llevar este proyecto a la práctica, se lograron repasar la teoría de sistemas digitales directamente en el hardware. Uno de los mayores logros fue aprender a gestionar la comunicación entre componentes externos y la placa, dominando el mapeo de puertos para que los interruptores de la protoboard, los botones de la FPGA y los LEDs indicadores trabajaran juntos en perfecta sincronía.
+
+- Como en todo montaje físico, no fue fácil construir la lógica para que funcionara en el hardware. Durante las pruebas, nos tocó lidiar con el ruido y los rebotes mecánicos de los botones, para evitar que la placa nos leyera pulsaciones fantasma o saltara de operación sin que nosotros quisiéramos.
