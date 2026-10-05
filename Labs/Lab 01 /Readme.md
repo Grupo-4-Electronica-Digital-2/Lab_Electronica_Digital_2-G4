@@ -111,6 +111,8 @@ En la captura de pantalla de GTKWave se observa claramente que el código escrit
 
 Una vez hecha la simulación se pasó el código al software para implementar en la FPGA, a continuación se puede observar en el video el funcionamiento de la ALU utilizando los botones, interruptores y los leds.
 
+https://github.com/user-attachments/assets/518e6a44-0eb6-4e9a-b98c-a1071407c1a4
+
 
 ## Implementación
 
