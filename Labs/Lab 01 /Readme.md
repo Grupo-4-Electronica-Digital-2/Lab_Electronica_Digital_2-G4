@@ -105,6 +105,8 @@ Se hizo una prueba poniendo todo en cero. Los switches pasaron a `F0`, lo que de
 
 En la captura de pantalla de GTKWave (archivo "image_a770b8.png") se observa claramente que el código escrito en Verilog cumple con lo esperado. Las gráficas de ondas demuestran que la ALU ejecuta los cálculos correctos, incluyendo el detalle de invertir los switches altos para el segundo número. También se comprueba que el control de las luces RGB y los LEDs responde de inmediato a la selección de cada botón sin generar comportamientos extraños en la placa.
 
+![Simulación en GTKWave](Labs/Lab_01/imagenes/SimulacionLab01.png)
+
 
 #### Ejercicio 1: 
 
