@@ -30,6 +30,8 @@ Pantallazo GTK Wave
 
 El diseño implementa en la FPGA una unidad lógica aritmética (ALU) combinacional de 4 bits, encargada de realizar diferentes operaciones sobre dos operandos de 4 bits. 
 
+La implementación física del diseño requirió el uso de botones e interruptores externos montados en una protoboard. Esta configuración fue necesaria debido a la arquitectura Zynq-7000 de la placa Zybo Z7, en la cual algunos periféricos integrados están ruteados físicamente hacia el Sistema de Procesamiento (SoC) y no hacia la Lógica Programable (FPGA). Para leer los periféricos de la placa sería necesario instanciar el procesador en Vivado; por lo tanto, se optó por usar componentes externos conectados al puerto PMOD (JE), garantizando así su lectura directa desde el hardware descrito en Verilog.
+
 Los operandos se obtienen de los ocho switches disponibles. Los cuatro switches inferiores (sw[3:0]) corresponden al operando \(A\), mientras que los cuatro switches superiores (sw[7:4]) corresponden al operando \(B\). Debido a que los switches externos utilizan una configuración pull-up, estos últimos se invierten mediante ~sw[7:4] para obtener la representación lógica esperada.
 
 La operación de la ALU se selecciona mediante los cuatro botones:
