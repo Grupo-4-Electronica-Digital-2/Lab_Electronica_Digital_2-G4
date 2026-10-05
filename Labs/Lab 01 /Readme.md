@@ -46,7 +46,6 @@ La salida de cada operación se presenta mediante los cuatro LED (led[3:0]). Adi
 ---
 
 ## Simulaciones
-### Ejercicio 1: 
 
 ### Ejercicio 2: Diseño libre
 Se presenta el reporte de la simulación realizada para comprobar que el diseño de la ALU funciona correctamente.
@@ -146,5 +145,6 @@ Cuando no se presiona ningún botón, los LED permanecen apagados. Si se presion
 ## Conclusiones
 
 - Al llevar este proyecto a la práctica, se lograron repasar la teoría de sistemas digitales directamente en el hardware. Uno de los mayores logros fue aprender a gestionar la comunicación entre componentes externos y la placa, dominando el mapeo de puertos para que los interruptores de la protoboard, los botones de la FPGA y los LEDs indicadores trabajaran juntos en perfecta sincronía.
+- Durante la implementación física surgieron diversos retos, siendo el principal el acondicionamiento de las señales externas provenientes de la protoboard. Dado que los interruptores externos operaban con una configuración pull-up, fue estrictamente necesario invertir lógicamente las señales del segundo operando en el código para asegurar la exactitud de los cálculos, además de garantizar una referencia de tierra compartida para evitar lecturas inestables. Adicionalmente, la limitación de visualización a 4 bits exigió una correcta interpretación de los resultados en la operación de suma, ya que el bit de acarreo (carry out) quedaba truncado visualmente al superar la capacidad máxima de representación.
 
 - Como en todo montaje físico, no fue fácil construir la lógica para que funcionara en el hardware. Durante las pruebas, nos tocó lidiar con el ruido y los rebotes mecánicos de los botones, para evitar que la placa nos leyera pulsaciones fantasma o saltara de operación sin que nosotros quisiéramos.
