@@ -113,6 +113,21 @@ Una vez hecha la simulación se pasó el código al software para implementar en
 
 https://github.com/user-attachments/assets/518e6a44-0eb6-4e9a-b98c-a1071407c1a4
 
+En este video, se pone a prueba un ejercicio de aplicación, se conecta un grupo de interruptores conectada a una protoboard. Básicamente se armó una ALU que realiza diferentes operaciones lógicas y aritméticas en tiempo real.
+
+#### Funcionamiento:
+Para ingresar los números con los que van a operar (que soportan hasta cuatro bits), se usan los interruptores (switches) de la protoboard para el primer número, y los propios interruptores de la FPGA para el segundo. 
+
+Para elegir qué cálculo quieren hacer, configuraron los botones de la placa de derecha a izquierda:
+*   **El botón de más a la derecha:** Activa la operación **AND**.
+*   **El que le sigue:** Activa la operación **OR**.
+*   **El tercer botón:** Activa la operación **XOR**.
+*   **El último botón:** Hace una **Suma** de toda la vida.
+
+Un detalle bastante útil que fue agregado al LED que está justo arriba de los botones: se programó para que cambie de color y así avisar visualmente qué operación está activada en ese momento. 
+
+Finalmente, para ver si la matemática no falla, el resultado de la operación se enciende directamente en los LEDs que están justo arribita de los interruptores de la FPGA. todo funcionando
+
 
 ## Implementación
 
