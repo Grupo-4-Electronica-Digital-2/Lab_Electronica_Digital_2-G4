@@ -1,10 +1,7 @@
 # Laboratorio 01  
 ## Lab01: FPGA (Zybo Z7), Vivado/Vitis y Validación de Hardware
 
-Maquinas de estado 
-Codigo comentado / explicaciones 
-Pantallazo GTK Wave 
----
+ ---
 
 ## Integrantes
 
