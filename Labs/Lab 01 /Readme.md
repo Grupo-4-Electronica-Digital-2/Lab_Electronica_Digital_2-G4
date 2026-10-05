@@ -145,10 +145,4 @@ Cuando no se presiona ningún botón, los LED permanecen apagados. Si se presion
 
 ## Conclusiones
 
-- Principales aprendizajes del laboratorio.
-- Dificultades encontradas.
-- Importancia de la simulación en el diseño digital.
-
----
-
-## Referencias
+-
