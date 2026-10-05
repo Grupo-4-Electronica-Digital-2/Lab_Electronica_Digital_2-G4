@@ -47,16 +47,65 @@ La salida de cada operación se presenta mediante los cuatro LED (led[3:0]). Adi
 
 ## Simulaciones
 
-Describa las simulaciones realizadas para verificar el funcionamiento del diseño.
+Se presenta el reporte de la simulación realizada para comprobar que el diseño de la ALU funciona correctamente.
 
-Incluya:
-- Descripción del testbench.
-- Señales observadas.
-- Resultados obtenidos.
+### Descripción del testbench
+
+Para probar el circuito, se armó un testbench que le envía diferentes valores a la ALU a través de los interruptores (`sw`) y los botones (`btn`). La idea fue simular cambios cada 10 nanosegundos para ir pasando por las cuatro operaciones (AND, OR, XOR y SUMA) y ver cómo respondía el diseño. Hay que recordar que, por las condiciones del proyecto, el primer número (A) entra tal cual por los 4 primeros switches, pero el segundo número (B) sale de los otros 4 switches con los bits invertidos.
+
+### Señales observadas
+
+Al revisar la simulación en GTKWave, se acomodaron las siguientes variables para que fuera más fácil leer los resultados:
+
+* **`btn[3:0]`**: Se dejó en binario para identificar rápido qué botón se estaba oprimiendo para elegir la operación.
+
+
+* **`sw[7:0]`**: Se puso en hexadecimal para agrupar visualmente los dos números que entran por los interruptores.
+
+
+* **`led[3:0]`**: Se dejó en binario para revisar el resultado final bit a bit.
+
+
+* **`rgb_r`, `rgb_g`, `rgb_b**`: Se dejaron tal cual para comprobar que prendiera el color indicado en cada operación.
+
+### Resultados obtenidos
+
+**Primera ronda de pruebas (de 10 ns a 50 ns):**
+Se configuraron los switches en `AC` (hexadecimal), lo que significa que el operando A valía 12 (`1100`) y el B valía 5 (`0101`).
+
+* **De 10 a 20 ns:** Se probó la operación AND oprimiendo el botón correspondiente (`btn = 0001`). El resultado en los LEDs fue `0100` y prendió el indicador rojo (`rgb_r` en alto).
+
+
+* **De 20 a 30 ns:** Se pasó a la operación OR (`btn = 0010`). Los LEDs mostraron `1101` y cambió al indicador verde (`rgb_g`).
+
+
+* **De 30 a 40 ns:** Se seleccionó la XOR (`btn = 0100`). El resultado arrojó `1001` y prendió exclusivamente el color azul (`rgb_b`).
+
+
+* **De 40 a 50 ns:** Se probó la SUMA (`btn = 1000`). El resultado en los LEDs fue `0001`. Esto es correcto porque 12 + 5 da 17, y al tener solo 4 bits para mostrar el resultado, el bit extra se pierde y queda el 1. Para mostrar que estaba sumando, prendieron el rojo y el verde al tiempo.
+
+
+
+**Segunda ronda de pruebas (de 50 ns a 70 ns):**
+Se cambiaron los switches a `C7`, así que A quedó valiendo 7 (`0111`) y B valiendo 3 (`0011`).
+
+* **De 50 a 60 ns:** No se oprimió ningún botón (`btn = 0000`). Tal como se programó, los LEDs mostraron `0000` y los colores se apagaron.
+
+
+* **De 60 a 70 ns:** Se volvió a sumar (`btn = 1000`). Los LEDs dieron el resultado `1010`, que es el número 10 en binario, confirmando que 7 + 3 se operó bien. Los colores rojo y verde volvieron a prenderse juntos.
+
+
+
+**Tercera ronda de pruebas (de 70 ns a 80 ns):**
+Se hizo una prueba poniendo todo en cero. Los switches pasaron a `F0`, lo que deja tanto a A como a B en cero.
+
+* **De 70 a 80 ns:** Al hacer la operación AND (`btn = 0001`), la salida de los LEDs fue `0000` y solo prendió el indicador rojo.
 
 ### Evidencias
 
-(Incluya capturas de pantalla de GTKWave donde se evidencie el correcto funcionamiento.)
+En la captura de pantalla de GTKWave (archivo "image_a770b8.png") se observa claramente que el código escrito en Verilog cumple con lo esperado. Las gráficas de ondas demuestran que la ALU ejecuta los cálculos correctos, incluyendo el detalle de invertir los switches altos para el segundo número. También se comprueba que el control de las luces RGB y los LEDs responde de inmediato a la selección de cada botón sin generar comportamientos extraños en la placa.
+
+
 #### Ejercicio 1: 
 
 
