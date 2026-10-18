@@ -35,16 +35,17 @@ encargada de realizar las operaciones aritméticas y lógicas.
 
 ## Módulos implementados
 
-- `top.v`: integra los módulos del sistema y conecta las entradas
-  y salidas de la FPGA.
-- `registro.v`: almacena los operandos A y B cuando se activa
-  la señal de carga correspondiente.
-- `op_selector.v`: actualiza la operación seleccionada mediante
-  los botones `btn2` y `btn3`.
-- `alu.v`: realiza las operaciones de suma, resta, AND y OR
-  sobre los operandos de 4 bits.
-- `rgb_ctrl.v`: representa la operación seleccionada mediante
-  el LED RGB.
+### Módulos implementados
+
+- **`top.v` — Módulo principal:** integra los módulos del sistema y establece las conexiones entre las entradas físicas de la FPGA, los registros, la ALU y las salidas de visualización. Recibe los valores de los interruptores y los botones, y envía el resultado de la operación a los LEDs.
+
+- **`registro.v` — Almacenamiento de operandos:** implementa un registro de 4 bits que almacena el valor presente en los interruptores `sw[3:0]` cuando se activa la señal `load` en un flanco positivo del reloj `clk`.
+
+- **`op_selector.v` — Selector de operaciones:** genera el código de operación de 2 bits `op[1:0]` a partir de los botones `btn2` y `btn3`. Cada botón modifica uno de los bits del código al detectar una pulsación, permitiendo seleccionar entre las cuatro operaciones disponibles. El módulo incorpora sincronización de las entradas con el reloj para reducir los riesgos asociados a señales asíncronas.
+
+- **`alu.v` — Unidad aritmético-lógica:** procesa los operandos A y B, ambos de 4 bits, y ejecuta la operación indicada por `op[1:0]`. Su implementación es completamente combinacional, por lo que el resultado se actualiza automáticamente cuando cambian los operandos o el código de operación. Las operaciones disponibles son suma, resta, AND bit a bit y OR bit a bit.
+
+- **`rgb_ctrl.v` — Controlador del LED RGB:** decodifica el código de operación y establece las señales de control de los componentes rojo, verde y azul del LED RGB. De esta manera, permite identificar visualmente la operación seleccionada sin necesidad de consultar el código binario.
 
 
 ### Estados y operaciones
@@ -52,12 +53,12 @@ encargada de realizar las operaciones aritméticas y lógicas.
 El selector utiliza dos bits, `op[1:0]`, para representar
 las cuatro operaciones disponibles:
 
-| Código | Operación |
-|--------|-----------|
-| `00`   | Suma: A + B |
-| `01`   | Resta: A - B |
-| `10`   | AND: A & B |
-| `11`   | OR: A \| B |
+| Código `op[1:0]` | Operación | Color del LED RGB |
+|:---:|---|---|
+| `00` | Suma: A + B | Verde |
+| `01` | Resta: A - B | Rojo |
+| `10` | AND: A & B | Azul |
+| `11` | OR: A \| B | Blanco |
 
 Estos cuatro códigos representan los modos de operación del
 sistema. El selector cambia los bits de operación al detectar
@@ -72,15 +73,6 @@ las pulsaciones de los botones correspondientes.
 5. La ALU calcula continuamente el resultado según A, B y `op`.
 6. Los LEDs `led[3:0]` muestran el resultado binario de la operación.
 7. El LED RGB indica la operación seleccionada.
-
-### Máquina de estados
-
-El diseño no utiliza una FSM convencional con estados nombrados
-y transiciones explícitas mediante una instrucción `case`.
-El módulo `op_selector` mantiene un código de operación de dos bits
-que cambia según las pulsaciones detectadas. Por esta razón,
-los cuatro códigos de operación pueden representarse como modos
-de funcionamiento, sin confundirlos con una FSM independiente.
 
 ## Simulaciones
 
