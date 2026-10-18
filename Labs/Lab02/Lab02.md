@@ -129,15 +129,9 @@ Las operaciones implementadas son:
 | `00` | Suma: A + B | Verde |
 | `01` | Resta: A - B | Rojo |
 | `10` | AND bit a bit | Azul |
-| `11` | OR bit a bit | Apagado, si las salidas son activas en bajo |
+| `11` | OR bit a bit | Blancoo |
 
 El resultado de la ALU tiene un ancho de 4 bits. Por ello, en las operaciones aritméticas se conservan únicamente los cuatro bits menos significativos, descartando cualquier acarreo o préstamo que no forme parte de ese ancho.
-
-### 4. Consideraciones de funcionamiento
-
-El diseño utiliza lógica combinacional para el cálculo y lógica secuencial para almacenar los operandos y actualizar la selección de operaciones. La ausencia de reset implica que el estado inicial depende de las condiciones de inicialización implementadas y admitidas por la FPGA.
-
-Asimismo, la sincronización de las entradas de los botones no elimina el rebote mecánico. Si se presentan múltiples cambios de operación con una sola pulsación, será necesario incorporar un circuito de antirrebote digital.
 
 ## Conclusiones
 
