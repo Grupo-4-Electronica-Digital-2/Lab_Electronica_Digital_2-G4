@@ -25,7 +25,7 @@
 
 ## Diseño implementado
 
-El diseño está compuesto por regustros de 4 bits,
+El diseño está compuesto por registros de 4 bits,
 una unidad de control para la selección de operaciones y un
 módulo de visualización mediante LEDs.
 
@@ -85,7 +85,7 @@ En GTKWave se observaron `clk`, `rst`, `btn0` a `btn3`, `sw[3:0]`, el código de
 - `led_r`, `led_g` y `led_b` cambian cada vez que cambia `op`, según la tabla de colores de la sección de diseño.
 ### Evidencias
  
-![Simulación en GTKWave](src/informe2simulacion.png)
+![Simulación en GTKWave](sim/informe2simulacion.png)
  
 *Simulación del sistema completo en GTKWave.*
 
@@ -148,7 +148,7 @@ Las operaciones implementadas son:
 | `00` | Suma: A + B | Verde |
 | `01` | Resta: A - B | Rojo |
 | `10` | AND bit a bit | Azul |
-| `11` | OR bit a bit | Blancoo |
+| `11` | OR bit a bit | Blanco |
 
 El resultado de la ALU tiene un ancho de 4 bits. Por ello, en las operaciones aritméticas se conservan únicamente los cuatro bits menos significativos, descartando cualquier acarreo o préstamo que no forme parte de ese ancho.
 
@@ -168,5 +168,6 @@ Se pudo comprobar que los operandos se conservan al mover los switches y que la 
 ---
 
 ## Referencias
+[1]: S. L. Harris y D. Harris, *Digital Design and Computer Architecture: RISC-V Edition*. Waltham, MA, USA: Morgan Kaufmann, 2021.
 
 
