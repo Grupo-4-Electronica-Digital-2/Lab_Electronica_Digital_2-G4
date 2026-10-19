@@ -156,7 +156,7 @@ Colores y su respectiva operación:
 - Verde: Suma
 - Rojo: Resta
 - Azul: And
-- Celeste: OR
+- Blanco: OR
 
 ## Conclusiones
  
