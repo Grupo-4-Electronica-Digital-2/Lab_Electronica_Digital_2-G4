@@ -148,7 +148,7 @@ Las operaciones implementadas son:
 El resultado de la ALU tiene un ancho de 4 bits. Por ello, en las operaciones aritméticas se conservan únicamente los cuatro bits menos significativos, descartando cualquier acarreo o préstamo que no forme parte de ese ancho.
 
 ### 4. Evidencia del funcionamiento
-En el video se puede observar el funcionamiento en la FPGA del código desarrollado pasando por cada operación indicada con su respectivo color y comprobando con algunos números las correctas operaciones:
+En el video se puede observar el funcionamiento en la FPGA del código desarrollado pasando por cada operación indicada con su respectivo color y comprobando con algunos números las operaciones respectivas:
 
 https://github.com/user-attachments/assets/8198f434-8583-4c10-b875-da41388d89e1
 
