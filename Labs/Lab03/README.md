@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/014c5f16-6200-4634-b5b0-88440e6f9c93
+
 # Laboratorio 03
 ## ALU + Banco de Registros + Diseño Modular
 
@@ -249,7 +253,10 @@ Las asignaciones de pines están en `constraints/zybo_z7.xdc`. Las señales del 
 
 ### Evidencia del funcionamiento
 
-**[COMPLETAR]** 
+
+
+https://github.com/user-attachments/assets/f97526a6-a839-4398-a30d-82266c97e28b
+
 
 
 ---
