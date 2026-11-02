@@ -1,6 +1,6 @@
 
 
-https://github.com/user-attachments/assets/014c5f16-6200-4634-b5b0-88440e6f9c93
+
 
 # Laboratorio 03
 ## ALU + Banco de Registros + Diseño Modular
