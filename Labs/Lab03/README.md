@@ -17,7 +17,6 @@
 ## Índice
 - [Descripción del sistema](#descripción-del-sistema)
 - [Arquitectura modular](#arquitectura-modular)
-- [Estrategia de visualización](#estrategia-de-visualización)
 - [Simulaciones](#simulaciones)
 - [Implementación en FPGA](#implementación-en-fpga)
 - [Conclusiones](#conclusiones)
@@ -103,7 +102,6 @@ Con 4 registros existen 6 parejas distintas. `BTN2` las recorre en orden y, tras
 2. Poner el código de la operación en `SW[2:0]`.
 3. Pulsar `BTN3`. El resultado aparece en el display y permanece hasta la siguiente ejecución.
 
-> Como `SW[2:0]` se comparte entre el dato de entrada y la selección de operación, el usuario debe tener en cuenta qué valor tienen los switches en cada pulsación: al pulsar `BTN1` se usan como dato y al pulsar `BTN3` como código de operación.
 
 ---
 
@@ -184,6 +182,37 @@ El módulo `hex_to_7seg.v` genera los patrones para un display de cátodo común
 
 ## Simulaciones
 
+El testbench (`tb/top_tb.v`) instancia el módulo `top` completo para verificar el sistema integrado y no solo la ALU.
+
+**Prueba 1 – Las 8 operaciones sobre la pareja (R0, R1): A = 5, B = 3**
+| `SW[2:0]` | Operación | Resultado (bin) | Display esperado |
+|:---:|---|:---:|:---:|
+| `000` | 5 + 3 | `1000` | `8` |
+| `001` | 5 − 3 | `0010` | `2` |
+| `010` | 0101 & 0011 | `0001` | `1` |
+| `011` | 0101 \| 0011 | `0111` | `7` |
+| `100` | 0101 ^ 0011 | `0110` | `6` |
+| `101` | ~0101 | `1010` | `A` |
+| `110` | 0101 << 1 | `1010` | `A` |
+| `111` | 0101 >> 1 | `0010` | `2` |
+
+
+![Operaciones ALU](sim/03_operaciones_alu.png)
+
+
+**Prueba 2– Persistencia del resultado**
+1. En la pareja (R0, R1) se ejecuta la suma → el display debe mostrar `8`.
+2. Se cambia `SW[2:0]` a otra operación y se pulsa `BTN2` para pasar a (R0, R2) → el display debe seguir en `8`.
+3. Se modifica un registro con `BTN0` y `BTN1` → el display debe seguir en `8`.
+4. Se pulsa `BTN3` con `SW[2:0] = 001` → el display debe cambiar a `9` (5 − 12).
+ 
+
+
+
+![Persistencia del resultado](sim/04_persistencia_resultado.png)
+ 
+El archivo de formas de onda completo está en `sim/top_tb.vcd`.
+
 
 
 ---
@@ -226,14 +255,11 @@ Las asignaciones de pines están en `constraints/zybo_z7.xdc`. Las señales del 
 ---
 
 ## Conclusiones
+Este laboratorio me dejó claro que un sistema digital completo funciona mucho mejor cuando se arma a partir de módulos pequeños que se pueden probar por separado. Cada bloque (ALU, banco de registros, selector, registro de resultado, antirrebote, decodificador y driver) tiene una función bien definida, y al final la integración se resume básicamente a conectar bien las señales entre ellos.
 
-Este laboratorio mostró que un sistema digital completo se construye mejor como un conjunto de módulos pequeños y probables por separado. Cada bloque (ALU, banco de registros, selector, registro de resultado, antirrebote, decodificador y driver) tiene una función clara, y la integración se reduce a conectar sus señales.
+Lo que más marcó la diferencia para cumplir el requisito principal fue entender bien la distinción entre lógica combinacional y secuencial. La ALU está calculando todo el tiempo, pero el result_latch es el único que decide cuándo ese resultado se “congela” y se muestra. Gracias a eso el display se mantiene estable aunque cambien los operandos, la operación o cualquier otra cosa.
 
-La diferencia entre lógica combinacional y secuencial fue determinante para cumplir el requisito principal. La ALU calcula siempre, y el `result_latch` es el único elemento que decide cuándo ese cálculo pasa a ser el resultado visible; por eso el display se mantiene estable aunque cambien los operandos, la combinación o la operación.
-
-El manejo de los botones mediante antirrebote y detección de flanco es lo que hace que cada pulsación produzca exactamente una acción, algo indispensable cuando varios botones controlan escrituras y ejecuciones. También se evidenció la importancia de simular antes de programar: el flujo especificación → diseño → simulación → implementación permitió revisar los casos límite, como el desbordamiento de la suma y la resta negativa, antes de llevar el diseño a la tarjeta.
-
-Finalmente, la estrategia de visualización en hexadecimal con un dígito resultó suficiente para representar sin ambigüedad cualquier resultado de 4 bits, aunque exige interpretar los valores desbordados de la aritmética modular.
+Por último, usar un solo dígito en hexadecimal resultó suficiente para mostrar sin ambigüedad cualquier resultado de 4 bits. Eso sí, hay que tener presente que los valores desbordados de la aritmética modular se interpretan de forma distinta.
 
 ---
 
