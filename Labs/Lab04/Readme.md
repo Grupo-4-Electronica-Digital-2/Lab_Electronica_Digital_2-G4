@@ -43,7 +43,7 @@ Diagrama de bloques final : Evidencia el SoC completo y organizado tras Regenera
 Entorno Vitis : Muestra en Vitis Explorer (LAB04 - VITIS COMPONENTS) la plataforma de hardware platform [Platform] junto con la aplicación app_component [Application] [standalone_ps7_cortexa9_0].
 
 <img width="487" height="282" alt="Captura de pantalla 2026-11-18 225632" src="https://github.com/user-attachments/assets/ae0240b0-1aa9-4fe2-bef0-d02e3491ac69" />
-
+![Correcto build](build.png)
 Video del funcionamiento en la FPGA: Después de realizar la implementación así se ve en la FPGA.
 
 
