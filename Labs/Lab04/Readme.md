@@ -44,6 +44,16 @@ Entorno Vitis : Muestra en Vitis Explorer (LAB04 - VITIS COMPONENTS) la platafor
 
 <img width="487" height="282" alt="Captura de pantalla 2026-11-18 225632" src="https://github.com/user-attachments/assets/ae0240b0-1aa9-4fe2-bef0-d02e3491ac69" />
 
+Video del funcionamiento en la FPGA: Después de realizar la implementación así se ve en la FPGA.
+
+
+
+
+https://github.com/user-attachments/assets/eb046b8f-3da0-4dc6-8fd3-0d70f242470b
+
+
+
+
 
 ## Referencias
 
